@@ -1,6 +1,4 @@
-cufflinks==0.17.3
 Flask==1.1.1
-gensim==3.8.2
 gunicorn==20.0.4
 imbalanced-learn==0.6.2
 imblearn==0.0
