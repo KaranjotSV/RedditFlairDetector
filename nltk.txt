@@ -1,2 +1,5 @@
 stopwords
 words
+word_tokenize
+WordNetLemmatizer
+punkt
