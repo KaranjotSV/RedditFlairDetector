@@ -114,11 +114,12 @@ The approach is explained in detail as follows:
 | Logistic Regression        | **0.5413567839**  |
 | Random Forest              | 0.515912897823    |
 
-### Intuition behind Combined Feature
+### Comment on using PushShift module for data collection and accuracy of models
 
-The features independently showed a test accuracy near to **60%** with the `body` feature giving the worst accuracies during the experiments. Hence, it was excluded in the combined feature set.
+The approach for this task was more focussed upon data because of the over-fitting of machine learning models. The data collection task was shifted to `pushshift` module because of the limit set by `praw` module on number of posts that could be retrieved. Moreover, if the data collected using `praw` module by `subreddit.search(flair, limit = 300)` method, is used, the accuracy on the test set increases to **70%**, but if the data set is checked manually for **Title** and **Flair** pair, its found to be mislabelled. The reason for a better accuracy is that by `subreddit.search(flair, limit = 300)` method, the Flair is searched in `post.title` rather than `post.link_flair_text`, during data collection.
 
 ### References
 
-1. [How to scrape data from Reddit](http://www.storybench.org/how-to-scrape-reddit-with-python/)
-2. [Multi-Class Text Classification Model Comparison and Selection](https://towardsdatascience.com/multi-class-text-classification-model-comparison-and-selection-5eb066197568)
+1. [How to scrape data from Reddit using PRAW](http://www.storybench.org/how-to-scrape-reddit-with-python/)
+2. [How to scrape data from Reddit using PushShift API](https://medium.com/@RareLoot/using-pushshifts-api-to-extract-reddit-submissions-fb517b286563)
+3. [Multi-Class Text Classification Model Comparison and Selection](https://towardsdatascience.com/multi-class-text-classification-model-comparison-and-selection-5eb066197568)
