@@ -50,7 +50,7 @@ The approach is explained in detail as follows:
 
   1. Collected maximum possible(234 - 243 for each flair) India subreddit data for each of the 11 flairs using `praw` module [[1]](http://www.storybench.org/how-to-scrape-reddit-with-python/). The method used for searching posts for each flair is `subreddit.search(f"flair:{flair}", limit = 300)`, another alternative is `subreddit.search(flair, limit = 300)`, but this leads to collection of mislabelled data, as it searched the flair in `post.title` rather than `post.link_flair_text`.
   2. The data included ***Post ID, Title, URL, Body, Score, Comments, Comments Count, Time Stamp*** and ***Flair***.
-  3. For **Comments**, only top level comments(top 10) were considered in dataset and no sub-comments were considered.
+  3. For ***Comments***, only top level comments(top 10) were considered in dataset and no sub-comments were considered.
   4. The ***Title, Comments*** and ***Body*** were cleaned by removing non-english words, stopwords and bad symbols using `nltk`.
   5. Five types of features were considered for the the given task:
   
