@@ -1,6 +1,6 @@
 # Reddit Flair Detector
 
-Reddit Flair Detector is a web application which detects flairs of posts of subreddit india using Machine Learning algorithms. The application can be found live at redditflairdetector-ksv(https://redditflairdetector-ksv.herokuapp.com/).
+Reddit Flair Detector is a web application which detects flairs of posts of subreddit india using Machine Learning algorithms. The application can be found live at [redditflairdetector-ksv](https://redditflairdetector-ksv.herokuapp.com/).
 
 ### Directory Structure
 
@@ -9,7 +9,7 @@ The description of files and folders can be found below:
   2. [Data](https://github.com/KaranjotSV/RedditFlairDetector/tree/master/Data) - Folder containing CSV instances of the collected data.
   4. [Models](https://github.com/KaranjotSV/RedditFlairDetector/tree/master/Models) - Folder containing jupyter notebooks of model training, contains 2 notebooks, each for the models fitted on the data retrieved via APIs - PRAW and PushShift .
   5. [sample](https://github.com/KaranjotSV/RedditFlairDetector/tree/master/sample) - Folder containing a sample txt file,
-the txt file contains URLs of subreddit india posts, can be used for testing /automated_testing(https://redditflairdetector-ksv.herokuapp.com/automated_testing) endpoint of the web application.
+the txt file contains URLs of subreddit india posts, can be used for testing [/automated_testing](https://redditflairdetector-ksv.herokuapp.com/automated_testing) endpoint of the web application.
   6. [static](https://github.com/KaranjotSV/RedditFlairDetector/tree/master/static) - Folder containing CSS files.
   7. [templates](https://github.com/KaranjotSV/RedditFlairDetector/tree/master/templates) - Folder containing HTML files.
   8. [EDA.ipynb](https://github.com/KaranjotSV/RedditFlairDetector/blob/master/EDA.ipynb) - Jupyter notebook for Exploratory Data Analysis.
