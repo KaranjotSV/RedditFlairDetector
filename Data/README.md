@@ -1,6 +1,6 @@
 # Data
 
-The features retrieved for each post are ***Post ID, Title, URL, Body, Score, Comments, Comments Count, Time Stamp, Flair*** 
+The features retrieved for each post are ***Post ID, Title, URL, Body, Score, Comments, Comments Count, Time Stamp, Flair.*** 
 
 - [PRAW-Data.csv](https://github.com/KaranjotSV/RedditFlairDetector/blob/master/Data/PRAW-Data.csv) contains 2656 examples of posts retrieved using Python Reddit API Wrapper — PRAW, 
 the data contains 235 - 242 examples of each Flair. The method used to retrieve is `subreddit.search(f"flair:{flair}", limit = 300)`,
