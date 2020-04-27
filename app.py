@@ -11,7 +11,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-model = pickle.load(open('LR-PUSHSHIFT.pkl','rb'))
+model = pickle.load(open('model.pkl','rb'))
 
 def preprocessing(ent):
 
