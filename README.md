@@ -32,7 +32,7 @@ the txt file contains URLs of subreddit india posts, can be used for testing [/a
   
 ### Dependencies
 
-The following dependencies can be found in [requirements.txt](https://github.com/radonys/Reddit-Flair-Detector/blob/master/requirements.txt):
+The following dependencies can be found in [requirements.txt](https://github.com/KaranjotSV/Reddit-Flair-Detector/blob/master/requirements.txt):
 
   1. [praw](https://praw.readthedocs.io/en/latest/)
   2. [scikit-learn](https://scikit-learn.org/)
