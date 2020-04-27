@@ -40,7 +40,6 @@ The following dependencies can be found in [requirements.txt](https://github.com
   4. [pandas](https://pandas.pydata.org/)
   5. [numpy](http://www.numpy.org/)
   6. [flask](https://flask.palletsprojects.com/en/1.1.x/)
-  7. [gunicorn](https://gunicorn.org/)
   
 ### Approach
 
