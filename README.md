@@ -32,7 +32,7 @@ the txt file contains URLs of subreddit india posts, can be used for testing [/a
   
 ### Dependencies
 
-The following dependencies can be found in [requirements.txt](https://github.com/KaranjotSV/Reddit-Flair-Detector/blob/master/requirements.txt):
+The following dependencies can be found in [requirements.txt](https://github.com/KaranjotSV/RedditFlairDetector/blob/master/requirements.txt):
 
   1. [praw](https://praw.readthedocs.io/en/latest/)
   2. [scikit-learn](https://scikit-learn.org/)
@@ -42,31 +42,35 @@ The following dependencies can be found in [requirements.txt](https://github.com
   
 ### Approach
 
-Going through various literatures available for text processing and suitable machine learning algorithms for text classification, I based my approach using [[2]](https://towardsdatascience.com/multi-class-text-classification-model-comparison-and-selection-5eb066197568) which described various machine learning models like Naive-Bayes, Linear SVM and Logistic Regression for text classification with code snippets. Along with this, I tried other models like Random Forest and Multi-Layer Perceptron for the task. I have obtained test accuracies on various scenarios which can be found in the next section.
+The approach for this task is more focussed upon Data, rather than the Machine learning algorithms. Various techniques like Data Augmentation, Oversampling, Feature Extraction are applied in order to get better results.
 
-The approach taken for the task is as follows:
+The approach is explained in detail as follows:
 
-  1. Collect 100 India subreddit data for each of the 12 flairs using `praw` module [[1]](http://www.storybench.org/how-to-scrape-reddit-with-python/).
-  2. The data includes *title, comments, body, url, author, score, id, time-created* and *number of comments*.
-  3. For **comments**, only top level comments are considered in dataset and no sub-comments are present.
-  4. The ***title, comments*** and ***body*** are cleaned by removing bad symbols and stopwords using `nltk`.
+  1. Collected maximum possible India subreddit data for each of the 11 flairs using `praw` module [[1]](http://www.storybench.org/how-to-scrape-reddit-with-python/). The method used for searching posts for each flair is `subreddit.search(f"flair:{flair}", limit = 300)`, another alternative is `subreddit.search(flair, limit = 300)`, but this leads to collection of mislabelled data, as it searched the flair in `post.title` rather than `post.link_flair_text`.
+  2. The data included *title, comments, body, url, comments, score, id, time-created* and *number of comments*.
+  3. For **comments**, only top level comments(top 10) are considered in dataset and no sub-comments are present.
+  4. The ***title, comments*** and ***body*** are cleaned by removing non-english words, stopwords and bad symbols using `nltk`.
   5. Five types of features are considered for the the given task:
     
     a) Title
     b) Comments
     c) Urls
     d) Body
-    e) Combining Title, Comments and Urls as one feature.
-  6. The dataset is split into **70% train** and **30% test** data using `train-test-split` of `scikit-learn`.
+    e) Combining Title, Comments, Body as one feature.
+    
+  6. The dataset is split into **80% train** and **20% test** data using `train-test-split` of `scikit-learn`.
   7. The dataset is then converted into a `Vector` and `TF-IDF` form.
-  8. Then, the following ML algorithms (using `scikit-learn` libraries) are applied on the dataset:
+  8. The dataset is augmented to increase the number of examples, in order to avoid overfitting. Augmentation is done by shuffling the sentences and changing the words in the sentences with their synonyms, using `nltk`.
+  9. Then, the following ML algorithms (using `scikit-learn` libraries) are applied on the dataset:
     
     a) Naive-Bayes
-    b) Linear Support Vector Machine
-    c) Logistic Regression
-    d) Random Forest
-    e) MLP
-   9. Training and Testing on the dataset showed the **Random Forest** showed the best testing accuracy of **77.97%** when trained on the combination of **Title + Comments + Url** feature.
+    b) Logistic Regression
+    c) Random Forest
+    
+   9. Training and Testing on the dataset showed that **Logistic Regression** showed the best testing accuracy of **63%** when trained on the combination of **Title + Comments + Body** feature.
+   10. The models were overfitting, even after tuning the hyperparameters, this led to the idea of collecting more data.
+   11. 
+   
    10. The best model is saved and is used for prediction of the flair from the URL of the post.
     
 ### Results
