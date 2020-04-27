@@ -9,7 +9,7 @@ The description of files and folders can be found below:
   2. [Data](https://github.com/KaranjotSV/RedditFlairDetector/tree/master/Data) - Folder containing CSV instances of the collected data.
   4. [Models](https://github.com/KaranjotSV/RedditFlairDetector/tree/master/Models) - Folder containing jupyter notebooks of model training, contains 2 notebooks, each for the models fitted on the data retrieved via APIs - PRAW and PushShift .
   5. [sample](https://github.com/KaranjotSV/RedditFlairDetector/tree/master/sample) - Folder containing a sample txt file,
-the txt file contains URLs of subreddit india posts, can be used for testing [/automated_testing](https://redditflairdetector-ksv.herokuapp.com/automated_testing) endpoint of the web application.
+the txt file contains URLs of subreddit india posts, can be used for testing [/automated_testing](https://redditflairdetector-ksv.herokuapp.com/automated_testing) endpoint of the web application endpoint of the web application.
   6. [static](https://github.com/KaranjotSV/RedditFlairDetector/tree/master/static) - Folder containing CSS files.
   7. [templates](https://github.com/KaranjotSV/RedditFlairDetector/tree/master/templates) - Folder containing HTML files.
   8. [EDA.ipynb](https://github.com/KaranjotSV/RedditFlairDetector/blob/master/EDA.ipynb) - Jupyter notebook for Exploratory Data Analysis.
@@ -39,39 +39,46 @@ The following dependencies can be found in [requirements.txt](https://github.com
   3. [nltk](https://www.nltk.org/)
   4. [pandas](https://pandas.pydata.org/)
   5. [numpy](http://www.numpy.org/)
+  6. [flask](https://flask.palletsprojects.com/en/1.1.x/)
+  7. [gunicorn](https://gunicorn.org/)
   
 ### Approach
 
-The approach for this task is more focussed upon Data, rather than the Machine learning algorithms. Various techniques like Data Augmentation, Oversampling, Feature Extraction are applied in order to get better results.
+The approach for this task is more focussed upon Data, rather than the Machine learning algorithms, such an approach is followed because of the Machine learning models overfitting the data. Various techniques like Data Augmentation, Oversampling, Feature Extraction are applied in order to get better results.
 
 The approach is explained in detail as follows:
 
-  1. Collected maximum possible India subreddit data for each of the 11 flairs using `praw` module [[1]](http://www.storybench.org/how-to-scrape-reddit-with-python/). The method used for searching posts for each flair is `subreddit.search(f"flair:{flair}", limit = 300)`, another alternative is `subreddit.search(flair, limit = 300)`, but this leads to collection of mislabelled data, as it searched the flair in `post.title` rather than `post.link_flair_text`.
-  2. The data included *title, comments, body, url, comments, score, id, time-created* and *number of comments*.
-  3. For **comments**, only top level comments(top 10) are considered in dataset and no sub-comments are present.
-  4. The ***title, comments*** and ***body*** are cleaned by removing non-english words, stopwords and bad symbols using `nltk`.
-  5. Five types of features are considered for the the given task:
-    
+  1. Collected maximum possible(234 - 243 for each flair) India subreddit data for each of the 11 flairs using `praw` module [[1]](http://www.storybench.org/how-to-scrape-reddit-with-python/). The method used for searching posts for each flair is `subreddit.search(f"flair:{flair}", limit = 300)`, another alternative is `subreddit.search(flair, limit = 300)`, but this leads to collection of mislabelled data, as it searched the flair in `post.title` rather than `post.link_flair_text`.
+  2. The data included ***Post ID, Title, URL, Body, Score, Comments, Comments Count, Time Stamp*** and ***Flair***.
+  3. For **Comments**, only top level comments(top 10) were considered in dataset and no sub-comments were considered.
+  4. The ***Title, Comments*** and ***Body*** were cleaned by removing non-english words, stopwords and bad symbols using `nltk`.
+  5. Five types of features were considered for the the given task:
+  
     a) Title
     b) Comments
-    c) Urls
-    d) Body
-    e) Combining Title, Comments, Body as one feature.
+    c) Combining Title, Comments as one feature
+    d) Combining Title, Comments, Body as one feature.
     
-  6. The dataset is split into **80% train** and **20% test** data using `train-test-split` of `scikit-learn`.
-  7. The dataset is then converted into a `Vector` and `TF-IDF` form.
-  8. The dataset is augmented to increase the number of examples, in order to avoid overfitting. Augmentation is done by shuffling the sentences and changing the words in the sentences with their synonyms, using `nltk`.
-  9. Then, the following ML algorithms (using `scikit-learn` libraries) are applied on the dataset:
+  6. The dataset was augmented to increase the number of examples, in order to avoid overfitting. Augmentation was done by shuffling the sentences and changing the words in the sentences with their synonyms, using `nltk`
+  7. The dataset was splitted into **80% train** and **20% test** data using `train-test-split` of `scikit-learn`.
+  8. The dataset was then converted into a `Vector` and `TF-IDF` form.
+  9. Then, the following ML algorithms (using `scikit-learn` libraries) were applied on the dataset:
     
     a) Naive-Bayes
     b) Logistic Regression
     c) Random Forest
     
-   9. Training and Testing on the dataset showed that **Logistic Regression** showed the best testing accuracy of **63%** when trained on the combination of **Title + Comments + Body** feature.
-   10. The models were overfitting, even after tuning the hyperparameters, this led to the idea of collecting more data.
-   11. 
-   
-   10. The best model is saved and is used for prediction of the flair from the URL of the post.
+ 10. Training and Testing on the dataset showed that **Logistic Regression** showed the best testing accuracy of **63%** when trained on the combination of **Title + Comments + Body** feature.
+ 11. The models were overfitting, even after tuning the hyperparameters, this led to the idea of collecting more data.
+ 12. Collected 24,000 India subreddit post for 11 flairs, posted between 16th February, 2019 and 24th April, 2020 using `pushshift` module. The posts were considered for the dataset only if, their titles consisted only english words.
+ 13. Same data cleaning and preprocessing methodoligies were applied, other than data augmentation, on data retrieved using `pushshift`
+ 13. Same Five types of features were considered for the task as the ones which were considered from data retrieved using `praw` module.
+ 14. The dataset was splitted into **80% train** and **20% test** data using `train-test-split` of `scikit-learn`.
+ 15. The dataset was then converted into a `Vector` and `TF-IDF` form.
+ 16. Due to imbalanced dataset, oversampling techniques were applied, among which SMOTE(Synthetic Minority Oversampling Technique) worked the best.
+ 17. Training and Testing on the dataset again showed that **Logistic Regression** showed the best testing accuracy of **54%** when trained on the combination of **Title + Comments + Body** feature.
+ 18. The model was saved and is being used for prediction of the flair from the URL of the post.
+ 19. This model was less accurate on the test data that the one trained on dataset retrieved using `praw`, but it was much less overfitted, and showed better results when tested on URLs of posts from subreddit India.
     
 ### Results
 
@@ -79,52 +86,33 @@ The approach is explained in detail as follows:
 
 | Machine Learning Algorithm | Test Accuracy     |
 | -------------              |:-----------------:|
-| Naive Bayes                | 0.6011904762      |
-| Linear SVM                 | 0.6220238095      |
-| Logistic Regression        | **0.6339285714**  |
-| Random Forest              | 0.6160714286      |
-| MLP                        | 0.4970238095      |
-
-#### Body as Feature
-
-| Machine Learning Algorithm | Test Accuracy     |
-| -------------              |:-----------------:|
-| Naive Bayes                | 0.2083333333      |
-| Linear SVM                 | 0.2470238095      |
-| Logistic Regression        | 0.2619047619      |
-| Random Forest              | **0.2767857143**  |
-| MLP                        | 0.2113095238      |
-
-#### URL as Feature
-
-| Machine Learning Algorithm | Test Accuracy     |
-| -------------              |:-----------------:|
-| Naive Bayes                | 0.3005952381      |
-| Linear SVM                 | **0.3898809524**  |
-| Logistic Regression        | 0.3690476190      |
-| Random Forest              | 0.3005952381      |
-| MLP                        | 0.3214285714      |
+| Naive Bayes                | **0.5360134003**  |
+| Logistic Regression        | 0.5351758793      |
+| Random Forest              | 0.5339195979      |
 
 #### Comments as Feature
 
 | Machine Learning Algorithm | Test Accuracy     |
 | -------------              |:-----------------:|
-| Naive Bayes                | 0.5357142857      |
-| Linear SVM                 | 0.6190476190      |
-| Logistic Regression        | **0.6220238095**  |
-| Random Forest              | 0.6011904762      |
-| MLP                        | 0.4761904762      |
+| Naive Bayes                | 0.2830820770      |
+| Logistic Regression        | **0.4020100502**  |
+| Random Forest              | 0.3890284757      |
 
-#### Title + Comments + URL as Feature
+#### Title + Comments as Feature
 
 | Machine Learning Algorithm | Test Accuracy     |
 | -------------              |:-----------------:|
-| Naive Bayes                | 0.6190476190      |
-| Linear SVM                 | 0.7529761905      |
-| Logistic Regression        | 0.7470238095      |
-| Random Forest              | **0.7797619048**  |
-| MLP                        | 0.4940476190      |
+| Naive Bayes                | 0.4941373534      |
+| Logistic Regression        | **0.5241678978**  |
+| Random Forest              | 0.5197403685      |
 
+#### Title + Comments + Body as Feature
+
+| Machine Learning Algorithm | Test Accuracy     |
+| -------------              |:-----------------:|
+| Naive Bayes                | 0.4924623115      |
+| Logistic Regression        | **0.5413567839**  |
+| Random Forest              | 0.515912897823    |
 
 ### Intuition behind Combined Feature
 
