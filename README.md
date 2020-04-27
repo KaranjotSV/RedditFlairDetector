@@ -43,15 +43,15 @@ The following dependencies can be found in [requirements.txt](https://github.com
   
 ### Approach
 
-The approach for this task is more focussed upon Data, rather than the Machine learning algorithms, such an approach is followed because of the Machine learning models overfitting the data. Various techniques like Data Augmentation, Oversampling, Feature Extraction are applied in order to get better results.
+The approach for this task is more focussed upon Data, rather than the Machine learning algorithms, such an approach is followed to reduce overfitting of Machine learning models. Various techniques like Data Augmentation, Oversampling, Feature Extraction are applied in order to get better results.
 
 The approach is explained in detail as follows:
 
-  1. Collected maximum possible(234 - 243 for each flair) India subreddit data for each of the 11 flairs using `praw` module [[1]](http://www.storybench.org/how-to-scrape-reddit-with-python/). The method used for searching posts for each flair is `subreddit.search(f"flair:{flair}", limit = 300)`, another alternative is `subreddit.search(flair, limit = 300)`, but this leads to collection of mislabelled data, as it searched the flair in `post.title` rather than `post.link_flair_text`.
-  2. The data included ***Post ID, Title, URL, Body, Score, Comments, Comments Count, Time Stamp*** and ***Flair***.
-  3. For ***Comments***, only top level comments(top 10) were considered in dataset and no sub-comments were considered.
+  1. Collected maximum possible(234 - 243 for each flair) India subreddit data for each of the 11 flairs using `praw` module. The method used for searching posts for each flair is `subreddit.search(f"flair:{flair}", limit = 300)`, another alternative is `subreddit.search(flair, limit = 300)`, but this lead's to collection of mislabelled data, as it search's the flair in `post.title` rather than `post.link_flair_text`.
+  2. The dataset included ***Post ID, Title, URL, Body, Score, Comments, Comments Count, Time Stamp*** and ***Flair***.
+  3. For ***Comments***, only top level comments(top 10) were considered for the dataset and no sub-comments were considered.
   4. The ***Title, Comments*** and ***Body*** were cleaned by removing non-english words, stopwords and bad symbols using `nltk`.
-  5. Five types of features were considered for the the given task:
+  5. Four types of features were considered for the the given task:
   
     a) Title
     b) Comments
@@ -69,15 +69,15 @@ The approach is explained in detail as follows:
     
  10. Training and Testing on the dataset showed that **Logistic Regression** showed the best testing accuracy of **63%** when trained on the combination of **Title + Comments + Body** feature.
  11. The models were overfitting, even after tuning the hyperparameters, this led to the idea of collecting more data.
- 12. Collected 24,000 India subreddit post for 11 flairs, posted between 16th February, 2019 and 24th April, 2020 using `pushshift` module. The posts were considered for the dataset only if, their titles consisted only english words.
- 13. Same data cleaning and preprocessing methodoligies were applied, other than data augmentation, on data retrieved using `pushshift`
- 13. Same Five types of features were considered for the task as the ones which were considered from data retrieved using `praw` module.
+ 12. Collected 24,000 India subreddit posts for 11 flairs, posted between 16th February, 2020 and 24th April, 2020 using `pushshift` module. A post was considered for the dataset only if, it's title consisted only english words.
+ 13. Same data cleaning and preprocessing techniques were applied, other than data augmentation, on data retrieved using `pushshift` module.
+ 13. Same Four types of features were considered for the task as the ones which were considered from the data retrieved using `praw` module.
  14. The dataset was splitted into **80% train** and **20% test** data using `train-test-split` of `scikit-learn`.
  15. The dataset was then converted into a `Vector` and `TF-IDF` form.
  16. Due to imbalanced dataset, oversampling techniques were applied, among which SMOTE(Synthetic Minority Oversampling Technique) worked the best.
  17. Training and Testing on the dataset again showed that **Logistic Regression** showed the best testing accuracy of **54%** when trained on the combination of **Title + Comments + Body** feature.
- 18. The model was saved and is being used for prediction of the flair from the URL of the post.
- 19. This model was less accurate on the test data that the one trained on dataset retrieved using `praw`, but it was much less overfitted, and showed better results when tested on URLs of posts from subreddit India.
+ 18. The model was saved and is being used for prediction of flair from URL of the post.
+ 19. This model was less accurate on test data than the one trained on the dataset retrieved using `praw` module, but it was much less overfitted, and showed better results when tested on URLs of posts from subreddit India.
     
 ### Results
 
@@ -115,7 +115,7 @@ The approach is explained in detail as follows:
 
 ### Comment on using PushShift module for data collection and accuracy of models
 
-The approach for this task was more focussed upon data because of the over-fitting of machine learning models. The data collection task was shifted to `pushshift` module because of the limit set by `praw` module on number of posts that could be retrieved. Moreover, if the data collected using `praw` module by `subreddit.search(flair, limit = 300)` method, is used, the accuracy on the test set increases to **70%**, but if the data set is checked manually for **Title** and **Flair** pair, its found to be mislabelled. The reason for a better accuracy is that by `subreddit.search(flair, limit = 300)` method, the Flair is searched in `post.title` rather than `post.link_flair_text`, during data collection.
+The approach for this task was more focussed upon data because of the over-fitting of machine learning models. The data collection task was shifted to `pushshift` module because of the limit set by `praw` module on number of posts that could be retrieved. Moreover, if the data collected using `praw` module by `subreddit.search(flair, limit = 300)` method, is used, the accuracy on the test set increases to **70%**, but if the data set is checked manually for **Title** and **Flair** pairs, it's found to be mislabelled. The reason for a better accuracy is that by `subreddit.search(flair, limit = 300)` method, the flair is searched in `post.title` rather than `post.link_flair_text`, during data collection.
 
 ### References
 
