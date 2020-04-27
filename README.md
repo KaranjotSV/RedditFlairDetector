@@ -1,6 +1,6 @@
 # Reddit Flair Detector
 
-Reddit Flair Detector is a web application which detects flairs of posts of subreddit india using Machine Learning algorithms. The application can be found live at [redditflairdetector-ksv](https://redditflairdetector-ksv.herokuapp.com/).
+Reddit Flair Detector is a web application which detect's flairs of posts of subreddit india using Machine Learning algorithms. The application can be found live at [redditflairdetector-ksv](https://redditflairdetector-ksv.herokuapp.com/).
 
 ### Directory Structure
 
