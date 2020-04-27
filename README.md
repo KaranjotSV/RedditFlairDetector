@@ -37,10 +37,8 @@ The following dependencies can be found in [requirements.txt](https://github.com
   1. [praw](https://praw.readthedocs.io/en/latest/)
   2. [scikit-learn](https://scikit-learn.org/)
   3. [nltk](https://www.nltk.org/)
-  4. [Django](https://www.djangoproject.com/)
-  5. [bs4](https://pypi.org/project/bs4/)
-  6. [pandas](https://pandas.pydata.org/)
-  7. [numpy](http://www.numpy.org/)
+  4. [pandas](https://pandas.pydata.org/)
+  5. [numpy](http://www.numpy.org/)
   
 ### Approach
 
