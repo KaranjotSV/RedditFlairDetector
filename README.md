@@ -25,7 +25,7 @@ the txt file contains URLs of subreddit india posts, can be used for testing [/a
   3. Ensure that `Python3` and `pip` is installed on the system.
   4. Create a `virtualenv` by executing the following command: `virtualenv -p python3 env`.
   5. Activate the `env` virtual environment by executing the follwing command: `source env/bin/activate`.
-  6. Enter the cloned repository directory and execute `pip install -r requirements.txt`.
+  6. Enter the cloned repository's directory and execute `pip install -r requirements.txt`.
   7. Enter `python` shell and `import nltk`. Execute `nltk.download(dependency)` for dependencies listed in nltk.txt and exit the shell.
   8. Now, execute the following command: `python3 app.py` and it will point to the `localhost` with the port.
   9. Hit the `IP Address` on a web browser and use the application.
