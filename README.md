@@ -22,7 +22,7 @@ the txt file contains URLs of subreddit india posts, can be used for testing [/a
 
   1. Open the `Terminal`.
   2. Clone the repository by entering `git clone https://github.com/KaranjotSV/RedditFlairDetector.git`.
-  3. Ensure that `Python3` and `pip` is installed on the system.
+  3. Ensure that `python3` and `pip` is installed on the system.
   4. Create a `virtualenv` by executing the following command: `virtualenv -p python3 env`.
   5. Activate the `env` virtual environment by executing the following command: `source env/bin/activate`.
   6. Enter the cloned repository's directory and execute `pip install -r requirements.txt`.
